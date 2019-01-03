@@ -11,6 +11,8 @@ namespace Tennis
         {
             var tennisGame = new TennisGame();
             tennisGame.PlayTennis();
+
+            Console.ReadKey();
         }
     }
 }

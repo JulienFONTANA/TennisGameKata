@@ -35,6 +35,15 @@ namespace TennisGameKataTests
         }
 
         [Test]
+        public void Should_Win_When_Scoring_Twice_At_40_While_Other_Team_Has_40()
+        {
+            var Scores = new List<int> { 40, 40 };
+            scoreHelper.Score(Scores, teamToScore);
+            scoreHelper.Score(Scores, teamToScore);
+            Check.That(Scores[teamToScore]).IsEqualTo(60);
+        }
+
+        [Test]
         public void Should_Take_Advantage_When_Scoring_At_40_While_Other_Team_Has_40()
         {
             var Scores = new List<int> { 40, 40 };
@@ -48,6 +57,14 @@ namespace TennisGameKataTests
             var Scores = new List<int> { 40, 50 };
             scoreHelper.Score(Scores, teamToScore);
             Check.That(Scores[otherTeam]).IsEqualTo(40);
+        }
+
+        [Test]
+        public void Should_Return_True_When_Game_Is_Over()
+        {
+            var Scores = new List<int> { 60, 0 };
+            var isOver = scoreHelper.GameIsOver(Scores);
+            Check.That(isOver).IsEqualTo(true);
         }
     }
 }

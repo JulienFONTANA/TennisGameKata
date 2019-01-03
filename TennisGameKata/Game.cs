@@ -6,11 +6,13 @@ namespace TennisGameKata
     public class Game : IGame
     {
         private IScoreHelper scoreHelper { get; set; }
-
+        private Random rand { get; set; }
         public List<int> Scores;
 
         public Game()
         {
+            rand = new Random(DateTime.Now.Second);
+
             scoreHelper = new ScoreHelper();
             Scores = new List<int>() { 0, 0 };
         }
@@ -22,14 +24,11 @@ namespace TennisGameKata
                 PlayABall();
                 DisplayScores();
             }
-            // TODO - Display Winner of the Set
         }
 
         public void PlayABall()
         {
-            Random rand = new Random(DateTime.Now.Second);
-
-            var winner = rand.Next(0, 1);
+            var winner = rand.Next(0, 2);
 
             if (winner == 0)
             {
@@ -43,19 +42,17 @@ namespace TennisGameKata
 
         public void DisplayScores()
         {
-            //Console.WriteLine($"Score is {_scoreBoard[Scores[0]]} to {_scoreBoard[Scores[1]]}");
+            scoreHelper.DisplayScore(Scores);
         }
 
         public void Score(int TeamToScore)
         {
-            // TODO - Increase score, don't forget deuce
             scoreHelper.Score(Scores, TeamToScore);
         }
 
         public bool GameIsOver()
         {
-            // TODO - Check when game is actually over
-            return false;
+            return scoreHelper.GameIsOver(Scores);
         }
     }
 }

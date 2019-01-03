@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TennisGameKata
 {
@@ -53,11 +55,34 @@ namespace TennisGameKata
                     }
                     return;
 
+                case 50:
+                    Scores[teamToScore] = 60;
+                    return;
+
                 default:
                     break;
             }
         }
 
-        // DisplayScore
+        public void DisplayScore(List<int> Scores)
+        {
+            if (!GameIsOver(Scores))
+            {
+                Console.WriteLine($"Score is {_scoreBoard[Scores[0]]} to {_scoreBoard[Scores[1]]}");
+            }
+            else
+            {
+                Console.WriteLine(Scores[0] == 60 ? "First team wins" : "Second team wins");
+            }
+        }
+
+        public bool GameIsOver(List<int> Scores)
+        {
+            if (Scores.Any(x => x == 60))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
